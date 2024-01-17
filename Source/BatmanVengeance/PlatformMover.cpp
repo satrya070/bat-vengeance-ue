@@ -26,24 +26,28 @@ void APlatformMover::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	MovePlatform(DeltaTime);
-	CheckTurn();
 }
 
 void APlatformMover::MovePlatform(float DeltaTime)
 {
-	FVector CurrentPosition = GetActorLocation() + MoveVelocity * DeltaTime;
-	SetActorLocation(CurrentPosition);
-
-	//UE_LOG(LogTemp, Display, TEXT("%s"), *BasePosition.ToString());
-
+	if(MustTurn())
+	{
+		//FVector MoveDirection = MoveVelocity.GetSafeNormal();
+		MoveVelocity = -MoveVelocity;
+		SetActorLocation(GetActorLocation() + MoveVelocity * DeltaTime);
+	}
+	else
+	{
+		FVector CurrentPosition = GetActorLocation() + MoveVelocity * DeltaTime;
+		SetActorLocation(CurrentPosition);
+	}
 }
 
-bool APlatformMover::CheckTurn()
+bool APlatformMover::MustTurn() const
 {
-	if(FVector::Distance(GetActorLocation(), BasePosition) > 100.f)
+	if(FVector::Distance(GetActorLocation(), BasePosition) > DistToMove)
 	{
-		//UE_LOG(LogTemp, Display, TEXT("Turn!!!"));
-		MoveVelocity = -MoveVelocity;
+		UE_LOG(LogTemp, Display, TEXT("Turn!!!"));
 		return true;
 	}
 

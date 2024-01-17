@@ -27,9 +27,6 @@ public:
 
 private:
 	UPROPERTY(EditAnywhere)
-	bool ShouldTurn;
-
-	UPROPERTY(EditAnywhere)
 	FVector MoveVelocity;
 
 	UPROPERTY(EditAnywhere)
@@ -37,5 +34,5 @@ private:
 
 	FVector BasePosition;
 
-	bool CheckTurn();
+	bool MustTurn() const;
 };
