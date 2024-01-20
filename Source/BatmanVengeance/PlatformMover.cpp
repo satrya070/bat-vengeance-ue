@@ -47,7 +47,7 @@ bool APlatformMover::MustTurn() const
 {
 	if(FVector::Distance(GetActorLocation(), BasePosition) > DistToMove)
 	{
-		UE_LOG(LogTemp, Display, TEXT("Turn!!!"));
+		//UE_LOG(LogTemp, Display, TEXT("Turn!!!"));
 		return true;
 	}
 
